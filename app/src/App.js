@@ -27,9 +27,9 @@ function App() {
       <Route exact path="/" component={Home}/>
       <Route path="/login" component={Login}/>
       <Route path="/register" component={Register}/>
-      <Route path="/myQuestions" component={MyQuestions}/>
+      <PrivateRoute path="/myQuestions" component={MyQuestions}/>
       <Route path="/:authorId/:questionId" component={QuestionDetails}/>
-      <Route path="/profile" component={Profile}/>
+      <PrivateRoute path="/profile" component={Profile}/>
       <Route path="/ask" component={NewPost}/>
       </div>
     </Router>

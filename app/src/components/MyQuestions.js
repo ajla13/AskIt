@@ -38,7 +38,7 @@ const MyQuestions = props => {
         if (end >= data.length) {
           end = data.length;
         }
-        console.log(arrayForHoldingPosts);
+        
         const slicedPosts = data.slice(start, end);
         arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
         setPostsToShow(arrayForHoldingPosts);
