@@ -39,7 +39,7 @@ const Home = props => {
    
     for(let i=0;i<user.notifications.length;i++){
       let text=user.notifications[i].commentedBy
-      NotificationManager.success(text+" repliedon your post","New comment",5000);
+      NotificationManager.success(text+" replied on your post","New comment",5000);
     }
     AuthService.popNotifications(user._id).then(data=>{
               console.log(data);

@@ -476,7 +476,7 @@ function sortQuestions(arr){
          }
       }
     }
-    var array=arr.slice(0,2);
+    var array=arr.slice(0,5);
     return array;
  }
 
