@@ -20,7 +20,7 @@ const MyQuestions = props => {
     const [questions, setQuestions] = useState([]);
     const [message, setMessage] = useState(null);
     const [postsToShow, setPostsToShow] = useState([]);
-    const[next,setNext]=useState(3);
+    const[next,setNext]=useState(20);
 
     useConstructor(() => {
       arrayForHoldingPosts=[];

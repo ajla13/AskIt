@@ -17,7 +17,7 @@ const Home = props => {
   const [postsToShow, setPostsToShow] = useState([]);
   let [questions, setQuestions] = useState([]);
   let [sortedQuestions, setSortedQuestions] = useState([]);
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(20);
   const[shown,setShown]=useState(false);
 
   useEffect(() => {
@@ -59,6 +59,8 @@ const Home = props => {
 
 
   const handleShowMorePosts = () => {
+    console.log(next);
+    console.log(next+postsPerPage);
     loopWithSlice(next, next + postsPerPage,questions);
     setNext(next + postsPerPage);
   };

@@ -72,6 +72,7 @@ const Question = props => {
                             <div className="clearfix"></div>
                             <p>{props.question.content}</p>
                             <div>
+                            <p>Liked by <strong>{props.question.likes}</strong></p>
                                 <Link to={'/' + props.question.authorId + '/' + props.question._id}>
                                     <h6 className="card-link">View question</h6>
                             

@@ -8,6 +8,7 @@ import CommentsList from './CommentsList';
 import LikeButton from './LikeSystem';
 import moment from 'moment';
 import CommentService from '../services/CommentService'
+import '../background.css';
 
 const QuestionDetails = props => {
     let authorId = props.match.params.authorId;
@@ -81,7 +82,9 @@ const QuestionDetails = props => {
         console.log(question);
         console.log(user);
         return (
+            <div>
             <LikeButton question={question} user={user} state={likedState}></LikeButton>
+            </div>
         )
 
     }
@@ -116,9 +119,9 @@ const QuestionDetails = props => {
                  <div>
                  {message ? <Message message={message} /> : null}
                      <div className="card-body">
-                         <div className="row">
+                         <div className="row" id="cards">
                              <div className="col-md-2">
-                                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" className="img img-rounded img-fluid" />
+                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" className="img img-rounded img-fluid" />
                                  <p className="text-secondary text-center"></p>
                              </div>
                              <div className="col-md-10">

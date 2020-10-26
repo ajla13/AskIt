@@ -1,8 +1,11 @@
 #body {
     margin: 0;
     padding: 0;
-    background-color:lightsteelblue
+    background-color:pink
     
+  }
+  #formQuestion{
+    margin: 30px;
   }
   #cards {
    
