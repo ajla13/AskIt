@@ -4,15 +4,14 @@ import CommentsList from './CommentsList';
 import { useState, useContext, useEffect, Component } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import QuestionService from '../services/QuestionService'
-import LikeButton from './LikeSystem';
 import moment from 'moment';
 import Message from './Message';
 import '../background.css';
 
 const Question = props => {
-    const [message,setMessage]=useState(null);
+    const [message, setMessage] = useState(null);
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
-    
+
     let state = false;
     let questionId = props.question._id;
     let authorId = props.question.authorId;
@@ -21,15 +20,15 @@ const Question = props => {
     }
 
     const deletePost = () => {
-    
-        setMessage({msgBody:"Post deleted!",msgError:true})
+
+        setMessage({ msgBody: "Post deleted!", msgError: true })
         let request = {
             authorId,
             questionId
         }
         QuestionService.deleteQuestion(request).then(() => {
             window.location.reload();
-            
+
         });
     }
     const userQuestion = () => {
@@ -39,28 +38,28 @@ const Question = props => {
         )
 
     }
-    
-   const func=()=>{
-       if(props.question.date){
-           let date=props.question.date;
-        let temp=moment(date).format('dd-mm-YYYY')
-        return(
-            
-            <span className="float-right">{temp}</span>
-        )
-       }
-      
-   }
+
+    const func = () => {
+        if (props.question.date) {
+            let date = props.question.date;
+            let temp = moment(date).format('dd-mm-YYYY')
+            return (
+
+                <span className="float-right">{temp}</span>
+            )
+        }
+
+    }
     return (
         <div>
             {message ? <Message message={message} /> : null}
             <div>
-                <div id="cards"className="card-body">
+                <div id="cards" className="card-body">
                     <div className="row">
                         <div className="col-md-2">
-                            <img 
-                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                             className="img img-rounded img-fluid" />
+                            <img
+                                src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                className="img img-rounded img-fluid" />
                             <p className="text-secondary text-center"></p>
                         </div>
                         <div className="col-md-10">
@@ -72,15 +71,15 @@ const Question = props => {
                             <div className="clearfix"></div>
                             <p>{props.question.content}</p>
                             <div>
-                            <p>Liked by <strong>{props.question.likes}</strong></p>
+                                <p>Liked by <strong>{props.question.likes}</strong></p>
                                 <Link to={'/' + props.question.authorId + '/' + props.question._id}>
                                     <h6 className="card-link">View question</h6>
-                            
+
                                 </Link>
                                 <div className="float-right">
-                                        {!state ? null : userQuestion()}
-                                    </div>
+                                    {!state ? null : userQuestion()}
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>

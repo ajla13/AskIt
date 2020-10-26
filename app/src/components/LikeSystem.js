@@ -9,7 +9,7 @@ const LikeButton = props => {
   const [state, setState] = useState({ liked: props.state })
   
   const handleClick = () => {
-    // console.log(state.liked);
+    
     let request = {
       authorId: props.question.authorId,
       questionId: props.question._id,
@@ -23,7 +23,7 @@ const LikeButton = props => {
       setLikes(numberOfLIkes-1);
     }
     QuestionService.questionLiked(request).then(data => {
-      console.log(data);
+      
     })
     setState({ liked: !state.liked });
   }

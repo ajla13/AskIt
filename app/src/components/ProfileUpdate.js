@@ -7,40 +7,40 @@ import Message from './Message';
 
 const ProfileUpdate = props => {
     const { user } = useContext(AuthContext);
-    const [newData, setNewData] = useState({ email: "", name: "", surname: "",userId:user._id });
+    const [newData, setNewData] = useState({ email: "", name: "", surname: "", userId: user._id });
     const [message, setMessage] = useState(null);
-    
+
 
     const onChange = e => {
         setNewData({ ...newData, [e.target.name]: e.target.value });
 
     }
-    const resetForm = ()=>{
-        setNewData({ email: "", name: "", surname: "",userId:user._id });
+    const resetForm = () => {
+        setNewData({ email: "", name: "", surname: "", userId: user._id });
     }
 
-    const onSubmit =e => {
+    const onSubmit = e => {
         e.preventDefault();
         AuthService.updateUser(newData).then(data => {
             const { message } = data;
-           // resetForm();
-            if(!message.msgError){
-                
+
+            if (!message.msgError) {
+
                 setMessage(message);
-               
+
             }
-            else{
+            else {
                 console.log(message.msgBody);
-                 setMessage(message)
+                setMessage(message)
             }
-            
+
             setTimeout(function () {
-               window.location.reload();
+                window.location.reload();
             }, 1000);
         });
     }
-    const cancel =()=>{
-       window.location.reload();
+    const cancel = () => {
+        window.location.reload();
     }
 
 
@@ -62,31 +62,31 @@ const ProfileUpdate = props => {
             <hr className="border-light m-0"></hr>
 
             <div className="card-body">
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label className="form-label">Name</label>
-                    <input name="name" onChange={onChange} type="text" 
-                    className="form-control" placeholder={user.name} required></input>
-                </div>
-                <div className="form-group">
-                    <label className="form-label">Lastname</label>
-                    <input name="surname" onChange={onChange} type="text"
-                     className="form-control" required placeholder={user.surname}></input>
-                </div>
-                <div className="form-group">
-                    <label className="form-label">E-mail</label>
-                    <input name="email" required onChange={onChange} type="text"
-                    className="form-control mb-1" placeholder={user.email}></input>
-                </div>
-                <div className="form-group text-right mt-3">
-              <input type="submit" value="Save changes" className="btn btn-primary" />&nbsp;
+                <form onSubmit={onSubmit}>
+                    <div className="form-group">
+                        <label className="form-label">Name</label>
+                        <input name="name" onChange={onChange} type="text"
+                            className="form-control" placeholder={user.name} required></input>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">Lastname</label>
+                        <input name="surname" onChange={onChange} type="text"
+                            className="form-control" required placeholder={user.surname}></input>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">E-mail</label>
+                        <input name="email" required onChange={onChange} type="text"
+                            className="form-control mb-1" placeholder={user.email}></input>
+                    </div>
+                    <div className="form-group text-right mt-3">
+                        <input type="submit" value="Save changes" className="btn btn-primary" />&nbsp;
               <button type="button" onClick={cancel} className="btn btn-default">Cancel</button>
-            </div>
+                    </div>
 
-           </form>
-    
+                </form>
+
             </div>
-            {message ? <Message message={message}/> : null}
+            {message ? <Message message={message} /> : null}
 
         </div>
 

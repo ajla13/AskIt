@@ -66,27 +66,27 @@ const Navbar = props => {
                 <button type="button"
                     className="btn btn-link nav-item nav-link"
                     onClick={onClickLogoutHandler}>Logout</button>
-                     
+
 
             </>
         )
     }
-     return(
-         
-         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-             <Link to="/">
-                 <div className="navbar-brand">AskIt</div>
-             </Link>
-             <div className="collapse navbar-collapse" id="navbarText">
-                 <ul className="navbar-nav mr-auto">
-                     { !isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
-                 </ul>
-             </div>
-         </nav>
-         
-     )
+    return (
+
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <Link to="/">
+                <div className="navbar-brand">AskIt</div>
+            </Link>
+            <div className="collapse navbar-collapse" id="navbarText">
+                <ul className="navbar-nav mr-auto">
+                    {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+                </ul>
+            </div>
+        </nav>
+
+    )
 
 
-    
+
 }
 export default Navbar;

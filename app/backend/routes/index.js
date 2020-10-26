@@ -14,7 +14,7 @@ const signToken = userID =>{
 router.post('/login',passport.authenticate('local',{session : false}),
      (req,res)=>{
        if(req.isAuthenticated()){
-           console.log(req.user);
+        
        const name=req.user.name;
        const email=req.user.email;
        const surname=req.user.surname;
@@ -54,9 +54,6 @@ router.post('/update/:idUser',ctrlUsers.updateUser);
 router.get('/user/:idUser',ctrlUsers.userById);
 router.get('/users', ctrlUsers.allUsers);
 router.post('/register', ctrlUsers.register);
-//router.get('/:authorId/:questionId',ctrlQuestions.getComments)
-//router.post('/login', ctrlUsers.login);
-//router.delete('/delete',ctrlUsers.deleteUser);
 router.post('/liked/:authorId/:questionId',ctrlQuestions.questionLiked);
 router.get('/sortedQuestions',ctrlQuestions.questionLikes);
 router.get('/myQuestions/:userId',ctrlQuestions.userQuestions);

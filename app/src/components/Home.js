@@ -42,7 +42,7 @@ const Home = props => {
       NotificationManager.success(text+" replied on your post","New comment",5000);
     }
     AuthService.popNotifications(user._id).then(data=>{
-              console.log(data);
+             
     })
     setShown(true);
 }
@@ -59,8 +59,7 @@ const Home = props => {
 
 
   const handleShowMorePosts = () => {
-    console.log(next);
-    console.log(next+postsPerPage);
+    
     loopWithSlice(next, next + postsPerPage,questions);
     setNext(next + postsPerPage);
   };
@@ -110,6 +109,7 @@ const Home = props => {
       { !isAuthenticated ? null : authenticatedHome()}
       <div>
         <h4 className="text-center text-info">Recent questions</h4>
+        <br></br><br></br>
       </div>
       <div>
         <Questions questions={postsToShow}></Questions>
@@ -117,11 +117,13 @@ const Home = props => {
         <br></br><br></br><br></br><br></br>
         <div>
           <h4 className="text-center text-info">Users with most answers</h4>
+          <br></br><br></br>
         </div>
         <UserList></UserList>
         <br></br>
         <div>
           <h4 className="text-center text-danger">Hot questions</h4>
+          <br></br><br></br>
         </div>
         <Questions questions={sortedQuestions}></Questions>
       </div>

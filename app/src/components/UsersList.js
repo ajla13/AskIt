@@ -5,16 +5,16 @@ import '../userList.css';
 import Message from './Message';
 
 const UsersList = props => {
-    const [message,setMessage]=useState({msgBody:"Loading...",msgError:false});
+    const [message, setMessage] = useState({ msgBody: "Loading...", msgError: false });
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
 
         AuthService.getUsers().then(data => {
-            if(!data.length){
-                setMessage({msgBody:"No Users",msgError:true})
+            if (!data.length) {
+                setMessage({ msgBody: "No Users", msgError: true })
             }
-            else{
+            else {
                 setMessage(null);
             }
             setUsers(data);

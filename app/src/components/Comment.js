@@ -1,12 +1,7 @@
 import React, { useState, useContext, useEffect, Component } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import CommentService from '../services/CommentService';
-import Modal from 'react-bootstrap/Modal';
-import ModalDialog from 'react-bootstrap/ModalDialog';
-import ModalHeader from 'react-bootstrap/ModalHeader';
-import ModalTitle from 'react-bootstrap/ModalTitle';
-import ModalBody from 'react-bootstrap/ModalBody';
-import ModalFooter from 'react-bootstrap/ModalFooter'
+
 
 const Comment = props => {
     const { isAuthenticated, user } = useContext(AuthContext);
@@ -16,39 +11,35 @@ const Comment = props => {
     let commentId = props.comment._id;
     let commentAuthor = props.comment.authorId
     const [show, setShow] = useState(false);
-    //const [content, setContent] = useState(props.comment.content);
-    const [editing,setEditing]=useState({text:"Edit",btnClicked:false,temp:"",content:props.comment.content});
-    const[temperory,setTemperory]=useState("")
+    const [editing, setEditing] = useState({ text: "Edit", btnClicked: false, temp: "", content: props.comment.content });
+    const [temperory, setTemperory] = useState("")
 
 
-    const handleClose = () => {
-        setShow(false);
-    }
-    const handleShow = () => setShow(true);
-    const handleClick=()=>{
+    
+    const handleClick = () => {
 
-        if(editing.text=="Update"){
-            let request={
-                authorId:authorId,
-                questionId:questionId,
-                commentId:commentId,
-                content:temperory.temperory
+        if (editing.text == "Update") {
+            let request = {
+                authorId: authorId,
+                questionId: questionId,
+                commentId: commentId,
+                content: temperory.temperory
             }
-            
-            CommentService.updateComment(request).then(data=>{
-                console.log(data);
-                setEditing({text:"Edit",btnClicked:false,temp:"",content:data.content});
+
+            CommentService.updateComment(request).then(data => {
+                
+                setEditing({ text: "Edit", btnClicked: false, temp: "", content: data.content });
             })
         }
-        else{
-        setEditing({text:"Update",btnClicked:true,temp:"",content:props.comment.content});
+        else {
+            setEditing({ text: "Update", btnClicked: true, temp: "", content: props.comment.content });
         }
-        
+
     }
 
     const onChange = e => {
-        setTemperory({...temperory,[e.target.name] : e.target.value});
-        console.log(temperory);
+        setTemperory({ ...temperory, [e.target.name]: e.target.value });
+       
 
     }
 
@@ -67,48 +58,48 @@ const Comment = props => {
             window.location.reload();
         });
     }
-    const cancelBtn=()=>{
-        return(
-            <button type="button" style={{margin:'5px'}}className="btn btn-secondary float-right">Cancel</button>
-   )
+    const cancelBtn = () => {
+        return (
+            <button type="button" style={{ margin: '5px' }} className="btn btn-secondary float-right">Cancel</button>
+        )
     }
-    
+
     const userComment = () => {
 
         return (
             <>
-                 <br></br><br></br><br></br>
-                <button type="button" 
-                style={{margin:'5px'}} className="btn btn-danger float-right" onClick={deleteComment} >Delete</button>
-                <button type="button" style={{margin:'5px'}}className="btn btn-primary float-right" onClick={handleClick}>
+                <br></br><br></br><br></br>
+                <button type="button"
+                    style={{ margin: '5px' }} className="btn btn-danger float-right" onClick={deleteComment} >Delete</button>
+                <button type="button" style={{ margin: '5px' }} className="btn btn-primary float-right" onClick={handleClick}>
                     {editing.text}</button>
-                {editing.btnClicked ? cancelBtn(): null}
-                
-                
+                {editing.btnClicked ? cancelBtn() : null}
+
+
             </>
 
         )
 
     }
 
-   const editingComment=()=>{
-       return(
-           <>
-           <input  type="text"
-                  required
-                  className="form-control"
-                  name="temperory"
-                  placeholder={editing.content}
-                  onChange={onChange}
-                  />
-           </>
-       )
-   }
-   const staticComment =()=>{
-    return(
-        <p>{editing.content}</p>
-    )
-   }
+    const editingComment = () => {
+        return (
+            <>
+                <input type="text"
+                    required
+                    className="form-control"
+                    name="temperory"
+                    placeholder={editing.content}
+                    onChange={onChange}
+                />
+            </>
+        )
+    }
+    const staticComment = () => {
+        return (
+            <p>{editing.content}</p>
+        )
+    }
     return (
         <div>
 
@@ -125,7 +116,7 @@ const Comment = props => {
                             <div className="float-left">
                                 {!state ? null : userComment()}
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>

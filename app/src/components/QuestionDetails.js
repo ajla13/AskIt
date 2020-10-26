@@ -7,17 +7,16 @@ import NewComment from './NewComment';
 import CommentsList from './CommentsList';
 import LikeButton from './LikeSystem';
 import moment from 'moment';
-import CommentService from '../services/CommentService'
 import '../background.css';
 
 const QuestionDetails = props => {
     let authorId = props.match.params.authorId;
     let questionId = props.match.params.questionId;
-    const[message,setMessage]=useState(null);
+    const [message, setMessage] = useState(null);
     const { isAuthenticated, user } = useContext(AuthContext);
-    const [question, setQuestion] = useState({authorName:"",authorLastname:"",date:"",content:"",comments:[],likedBy:[]});
-    const[fetched,setFetched]=useState(false);
-    
+    const [question, setQuestion] = useState({ authorName: "", authorLastname: "", date: "", content: "", comments: [], likedBy: [] });
+    const [fetched, setFetched] = useState(false);
+
     let state = false;
     if (isAuthenticated) {
         if (user._id == authorId) {
@@ -33,20 +32,20 @@ const QuestionDetails = props => {
         QuestionService.getQuestion(request).then(data => {
             setQuestion(data);
             setFetched(true);
-            
+
         });
     }, []);
 
-    const searchUser=()=> {
-        console.log(question.likedBy);
-        for(let i=0;i<question.likedBy.length;i++){
-          if(question.likedBy[i]==user._id){
-            return true;
-          }
-        
+    const searchUser = () => {
+
+        for (let i = 0; i < question.likedBy.length; i++) {
+            if (question.likedBy[i] == user._id) {
+                return true;
+            }
+
         }
         return false;
-      } 
+    }
 
 
     const authenticatedDetails = () => {
@@ -56,8 +55,8 @@ const QuestionDetails = props => {
 
     }
     const deletePost = () => {
-        document.getElementById("delete").setAttribute("disabled","disabled");
-        setMessage({msgBody:"Post deleted!",msgError:true})
+        document.getElementById("delete").setAttribute("disabled", "disabled");
+        setMessage({ msgBody: "Post deleted!", msgError: true })
 
         let authorId = props.match.params.authorId;
         let questionId = props.match.params.questionId;
@@ -66,7 +65,7 @@ const QuestionDetails = props => {
             questionId
         }
         QuestionService.deleteQuestion(request).then(() => {
-           props.history.push('/');
+            props.history.push('/');
         })
     }
     const userQuestion = () => {
@@ -77,82 +76,79 @@ const QuestionDetails = props => {
 
     }
     const Like = () => {
-        let likedState=searchUser();
-        console.log(likedState);
-        console.log(question);
-        console.log(user);
+        let likedState = searchUser();
         return (
             <div>
-            <LikeButton question={question} user={user} state={likedState}></LikeButton>
+                <LikeButton question={question} user={user} state={likedState}></LikeButton>
             </div>
         )
 
     }
-      
-    const func=()=>{
-        if(question.date){
-            let date=question.date;
-         let temp=moment(date).format('dd-mm-YYYY')
-         return(
-             
-             <span className="float-right">{temp}</span>
-         )
+
+    const func = () => {
+        if (question.date) {
+            let date = question.date;
+            let temp = moment(date).format('dd-mm-YYYY')
+            return (
+
+                <span className="float-right">{temp}</span>
+            )
         }
-       
+
     }
-    
-    const commenting=()=>{
-        
-        return(
-           
+
+    const commenting = () => {
+
+        return (
+
             <CommentsList question={question}></CommentsList>
         )
     }
 
-    
-     return (
 
-         
-         <div>
-           
-             <div>
-                 <div>
-                 {message ? <Message message={message} /> : null}
-                     <div className="card-body">
-                         <div className="row" id="cards">
-                             <div className="col-md-2">
-                                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" className="img img-rounded img-fluid" />
-                                 <p className="text-secondary text-center"></p>
-                             </div>
-                             <div className="col-md-10">
-                                 <div>
-                                     <h6 className="float-left" > Posted by <strong>{question.authorName} {question.authorLastname}</strong></h6>
-                                     {func()}
- 
-                                 </div>
-                                 <div className="clearfix"></div>
-                                 <p>{question.content}</p>
-                                 <p>
-                                     {isAuthenticated && fetched? Like() : null}
-                                    {state ? userQuestion() : null }
-                                 </p>
-                             </div>
-                         </div>
-                         <div className="card card-inner">
-                             {!isAuthenticated ? null : authenticatedDetails()}
-                             {!fetched ? null : 
-                                 commenting()
-                             }
-                             
- 
-                         </div>
-                     </div>
-                 </div>
-             </div>
- 
-         </div>
-     );
- 
+    return (
+
+
+        <div>
+
+            <div>
+                <div>
+                    {message ? <Message message={message} /> : null}
+                    <div className="card-body">
+                        <div className="row" id="cards">
+                            <div className="col-md-2">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" className="img img-rounded img-fluid" />
+                                <p className="text-secondary text-center"></p>
+                            </div>
+                            <div className="col-md-10">
+                                <div>
+                                    <h6 className="float-left" > Posted by <strong>{question.authorName} {question.authorLastname}</strong></h6>
+                                    {func()}
+
+                                </div>
+                                <div className="clearfix"></div>
+                                <p>{question.content}</p>
+                                <p>
+                                    {isAuthenticated && fetched ? Like() : null}
+                                    {state ? userQuestion() : null}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="card card-inner">
+                            {!isAuthenticated ? null : authenticatedDetails()}
+                            {!fetched ? null :
+                                commenting()
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    );
+
 }
 
 
