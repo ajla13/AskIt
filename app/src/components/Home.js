@@ -8,7 +8,7 @@ import {NotificationManager} from 'react-notifications';
 import AuthService from '../services/AuthService';
 import '../background.css';
 
-let arrayForHoldingPosts = [];
+let arrayForHoldingPosts;
 const postsPerPage = 20;
 
 const Home = props => {
@@ -21,8 +21,9 @@ const Home = props => {
   const[shown,setShown]=useState(false);
 
   useEffect(() => {
+    arrayForHoldingPosts=[];
     QuestionService.getQuestions().then(data => {
-     
+      
       loopWithSlice(0, postsPerPage,data);
       setQuestions(data);
 
@@ -50,6 +51,7 @@ const Home = props => {
     if (end >= data.length) {
       end = data.length;
     }
+   
     const slicedPosts = data.slice(start, end);
     arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
     setPostsToShow(arrayForHoldingPosts);
@@ -84,19 +86,7 @@ const Home = props => {
   const resetForm = () => {
     document.getElementById("formQuestion").reset();
   }
-  const onSubmit = e => {
-    e.preventDefault();
-    QuestionService.postQuestion(content).then(data => {
-     
-      resetForm();
-      QuestionService.getQuestions().then(data => {
-      
-        loopWithSlice(next, next + postsPerPage,data)
-        setQuestions(data);
-      })
-    });
-   
-  }
+
 
 
 

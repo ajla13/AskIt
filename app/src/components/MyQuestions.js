@@ -4,7 +4,7 @@ import QuestionService from '../services/QuestionService';
 import Message from './Message';
 import { AuthContext } from '../context/AuthContext';
 import '../background.css';
-let arrayForHoldingPosts = [];
+let arrayForHoldingPosts;
 const postsPerPage = 20;
 
 const useConstructor = (callBack = () => { }) => {
@@ -23,6 +23,7 @@ const MyQuestions = props => {
     const[next,setNext]=useState(3);
 
     useConstructor(() => {
+      arrayForHoldingPosts=[];
         let userId = user._id;
         QuestionService.getUserQuestions(userId).then(data => {
             loopWithSlice(0, postsPerPage,data);
@@ -37,6 +38,7 @@ const MyQuestions = props => {
         if (end >= data.length) {
           end = data.length;
         }
+        console.log(arrayForHoldingPosts);
         const slicedPosts = data.slice(start, end);
         arrayForHoldingPosts = [...arrayForHoldingPosts, ...slicedPosts];
         setPostsToShow(arrayForHoldingPosts);
@@ -71,7 +73,7 @@ const MyQuestions = props => {
             <ul className="list-group">
                 {
 
-                    questions.map(question => {
+                    postsToShow.map(question => {
                         return <Question key={question._id} question={question} />
                     })
 
